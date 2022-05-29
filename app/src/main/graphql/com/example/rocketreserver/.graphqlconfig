@@ -1,0 +1,13 @@
+{
+  "name": "Untitled GraphQL r Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "https://balloons.thetc.se/graphql",
+        "headers": {},
+        "introspect": false
+      }
+    }
+  }
+}

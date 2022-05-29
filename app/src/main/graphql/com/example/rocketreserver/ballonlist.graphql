@@ -1,0 +1,26 @@
+query ballonlist {
+    balloons {
+        __typename
+        pageInfo {
+            endCursor
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            __typename
+        }
+        edges {
+            node {
+                id
+                name
+                imageUrl
+                description
+                color
+                variant
+                price
+                availableSince
+                __typename
+            }
+            cursor
+        }
+    }
+}
