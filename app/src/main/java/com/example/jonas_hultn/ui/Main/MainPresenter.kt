@@ -1,7 +1,9 @@
 package com.example.jonas_hultn.ui.Main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.apollographql.apollo3.exception.ApolloException
 import com.example.jonas_hultn.BallonlistQuery
 import com.example.jonas_hultn.factory.Presenter
 import com.example.jonas_hultn.repository.remote.RemoteDataSource
@@ -16,6 +18,7 @@ class MainPresenter @Inject constructor(private val repository: RemoteDataSource
     Presenter<MainContract.View>(), MainContract.Presenter {
 
     val _result = MutableLiveData<BallonlistQuery.Data>()
+    private val _result_temp: ArrayList<BallonlistQuery.Edge> = ArrayList()
 
 
     private var parentJob = Job()
@@ -29,17 +32,46 @@ class MainPresenter @Inject constructor(private val repository: RemoteDataSource
         super.initialize(extras)
     }
 
-     fun fetchBalloonList() {
-
+    fun fetchBalloonList() {
         getView()?.loadMore(true)
         scope.launch {
-            repository.getBallonList().apply {
-                getView()?.loadMore(false)
-                if (data == null)
-                    fetchBalloonList()
-                else
-                    _result.postValue(data)
+            try {
+                if (_result.value == null) {
+                    val res = repository.getBallonList("")
+                    getView()?.loadMore(false)
+                    if (res.data == null)
+                        fetchBalloonList()
+                    else {
+                        res.data?.balloons?.edges?.let { it1 -> _result_temp.addAll(it1) }
+                        _result.postValue(res.data)
+                    }
+                } else {
+                    if (_result.value?.balloons?.pageInfo?.endCursor==null){
+                        getView()?.loadMore(false)
+                    }
+                    _result.value?.balloons?.pageInfo?.endCursor?.let {
+                        val res = repository.getBallonList(it)
+                        getView()?.loadMore(false)
+                        if (res.data == null)
+                            fetchBalloonList()
+                        else {
+                            res.data?.balloons?.edges?.let { it1 -> _result_temp.addAll(it1) }
+                            val dats: BallonlistQuery.Data = BallonlistQuery.Data(
+                                BallonlistQuery.Balloons(
+                                    res.data!!.balloons.__typename,
+                                    res.data!!.balloons.pageInfo,
+                                    _result_temp
+                                )
+                            )
+                            _result.postValue(dats)
+
+                        }
+                    }
+                }
+            } catch (exception: ApolloException) {
+                Log.e("App", exception.message.toString())
             }
+
         }
     }
 

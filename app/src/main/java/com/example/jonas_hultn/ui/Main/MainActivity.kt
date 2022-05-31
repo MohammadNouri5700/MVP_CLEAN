@@ -1,6 +1,8 @@
 package com.example.jonas_hultn.ui.Main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -22,6 +24,9 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
 
     lateinit var binding: ActivityMainBinding
 
+    private var adapter: AdapterBalloonList? = null
+
+    private var is_busy = false
 
     override fun initializePresenter() {
         mainPresenter.setView(this)
@@ -46,15 +51,35 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
             updateList(it)
         }
         binding.shimmer.startShimmer()
-
         mainPresenter.fetchBalloonList()
+
     }
 
+
     private fun updateList(data: BallonlistQuery.Data) {
-        binding.rec.layoutManager = LinearLayoutManager(this)
-        binding.rec.adapter = AdapterBalloonList(data, this, this)
-        binding.shimmer.stopShimmer()
-        binding.shimmer.visibility = View.GONE
+        if (adapter == null) {
+            binding.shimmer.stopShimmer()
+            binding.shimmer.visibility = View.GONE
+            binding.rec.layoutManager = LinearLayoutManager(this)
+            adapter = AdapterBalloonList(data, this, this)
+            binding.rec.adapter = adapter;
+        } else
+            adapter!!.update(data)
+
+        is_busy = false
+        binding.rec.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(2)) {
+                    if (!is_busy) {
+                        is_busy = true
+                        mainPresenter.fetchBalloonList()
+                    }
+                }
+            }
+        })
+
+
     }
 
     override fun detail(item: BallonlistQuery.Edge) {
@@ -63,9 +88,9 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
 
     override fun loadMore(boolean: Boolean) {
         if (boolean)
-            binding.prLoad.visibility =View.VISIBLE
+            binding.prLoad.visibility = View.VISIBLE
         else
-            binding.prLoad.visibility =View.GONE
+            binding.prLoad.visibility = View.GONE
 
     }
 

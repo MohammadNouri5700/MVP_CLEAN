@@ -1,4 +1,31 @@
-query ballonlist {
+query ballonlist($cursor: ID) {
+    balloons(after: $cursor) {
+        __typename
+        pageInfo {
+            endCursor
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            __typename
+        }
+        edges {
+            node {
+                id
+                name
+                imageUrl
+                description
+                color
+                variant
+                price
+                availableSince
+                __typename
+            }
+            cursor
+        }
+    }
+}
+
+query ballonlisaxt{
     balloons {
         __typename
         pageInfo {

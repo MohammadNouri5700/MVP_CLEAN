@@ -1,5 +1,6 @@
 package com.example.jonas_hultn.ui.Main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,7 @@ import com.example.jonas_hultn.R
 import com.example.jonas_hultn.factory.Constant
 import com.squareup.picasso.Picasso
 
-class AdapterBalloonList constructor(val data: BallonlistQuery.Data, private val ctx: Context, private val listener: ListImp): RecyclerView.Adapter<AdapterBalloonList.ViewHolder>() {
+class AdapterBalloonList constructor(var data: BallonlistQuery.Data, private val ctx: Context, private val listener: ListImp): RecyclerView.Adapter<AdapterBalloonList.ViewHolder>() {
 
 
 
@@ -44,6 +45,12 @@ class AdapterBalloonList constructor(val data: BallonlistQuery.Data, private val
         return ViewHolder(view)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun update(newdata: BallonlistQuery.Data){
+        data = newdata
+        this.notifyDataSetChanged()
+
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.txtname.text = data.balloons.edges[position].node.name
