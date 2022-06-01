@@ -50,6 +50,7 @@
                 android:id="@+id/txt_message"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
+                android:maxLength="160"
                 android:layout_below="@+id/txt_des"
                 android:hint="@string/app_name" />
 

@@ -2,20 +2,24 @@ package com.example.jonas_hultn.ui.Main
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hepsi.repository.local.DBs.MessageDb
 import com.example.jonas_hultn.BallonlistQuery
 import com.example.jonas_hultn.R
 import com.example.jonas_hultn.databinding.ActivityMainBinding
 import com.example.jonas_hultn.factory.BaseActivity
 import com.example.jonas_hultn.factory.DaggerMainApplication
+import com.example.jonas_hultn.repository.local.callbacks.MessageDao
 import com.example.jonas_hultn.ui.detail.DetailSheet
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View, ListImp {
 
+
+    @Inject
+    lateinit var db: MessageDao
 
     @Inject
     lateinit var mainPresenter: MainPresenter
@@ -41,6 +45,8 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
 
+
+        db.insert(MessageDb(0,"fbsdfbs"))
 
 
         mainPresenter._result.observe(

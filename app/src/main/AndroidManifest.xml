@@ -17,6 +17,7 @@
         android:theme="@style/Theme.Jonas_Hultén"
         tools:targetApi="31">
         <activity
+            android:configChanges="orientation|keyboardHidden|layoutDirection"
             android:name=".ui.Main.MainActivity"
             android:exported="true">
             <intent-filter>
