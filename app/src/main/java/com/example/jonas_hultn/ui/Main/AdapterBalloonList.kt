@@ -1,21 +1,32 @@
 package com.example.jonas_hultn.ui.Main
 
+
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.apollographql.apollo3.api.possibleTypes
 import com.example.jonas_hultn.BallonlistQuery
 import com.example.jonas_hultn.R
 import com.example.jonas_hultn.factory.Constant
 import com.squareup.picasso.Picasso
 
-class AdapterBalloonList constructor(var data: BallonlistQuery.Data, private val ctx: Context, private val listener: ListImp): RecyclerView.Adapter<AdapterBalloonList.ViewHolder>() {
+
+class AdapterBalloonList constructor(
+    var data: BallonlistQuery.Data,
+    private val ctx: Context,
+    private val listener: ListImp
+) : RecyclerView.Adapter<AdapterBalloonList.ViewHolder>() {
 
 
+    var lastPosition = 0
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val txtdes: TextView
@@ -35,22 +46,28 @@ class AdapterBalloonList constructor(var data: BallonlistQuery.Data, private val
         }
     }
 
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.row_ballon_list, parent, false)
 
-        return ViewHolder(view)
+            return ViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.row_ballon_list, parent, false))
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun update(newdata: BallonlistQuery.Data){
+    fun update(newdata: BallonlistQuery.Data) {
         data = newdata
         this.notifyDataSetChanged()
-
     }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.clearAnimation()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.txtname.text = data.balloons.edges[position].node.name
@@ -61,7 +78,9 @@ class AdapterBalloonList constructor(var data: BallonlistQuery.Data, private val
             data.balloons.edges.get(position).let { it1 -> listener.detail(it1) }
         }
 
-        Picasso.with(ctx).load(Constant.DOMAIN+data.balloons.edges[position].node.imageUrl).into(holder.img)
+        Picasso.with(ctx).load(Constant.DOMAIN + data.balloons.edges[position].node.imageUrl)
+            .into(holder.img)
+
     }
 
     override fun getItemCount(): Int {

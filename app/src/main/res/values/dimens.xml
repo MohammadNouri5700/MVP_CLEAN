@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="items_size_recyclerview">130dp</dimen>
+    <dimen name="big_items_size_recyclerview">310dp</dimen>
     <dimen name="button_radius">10dp</dimen>
 
 </resources>
