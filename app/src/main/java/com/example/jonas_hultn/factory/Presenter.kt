@@ -18,7 +18,9 @@ abstract class Presenter<T : BaseView> {
         this.view = WeakReference(view)
     }
 
+
     open fun initialize(extras: Bundle?) {}
+    open fun initialize() {}
 
     fun start() {
         isViewAlive.set(true)

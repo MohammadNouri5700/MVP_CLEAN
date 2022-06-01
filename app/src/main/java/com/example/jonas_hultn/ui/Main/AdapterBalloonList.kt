@@ -3,16 +3,12 @@ package com.example.jonas_hultn.ui.Main
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.apollographql.apollo3.api.possibleTypes
 import com.example.jonas_hultn.BallonlistQuery
 import com.example.jonas_hultn.R
 import com.example.jonas_hultn.factory.Constant
@@ -75,7 +71,7 @@ class AdapterBalloonList constructor(
         holder.txtprice.text = data.balloons.edges[position].node.price.toString()
 
         holder.txtdetail.setOnClickListener {
-            data.balloons.edges.get(position).let { it1 -> listener.detail(it1) }
+            data.balloons.edges.get(position).let { it1 -> listener.detail(data,position) }
         }
 
         Picasso.with(ctx).load(Constant.DOMAIN + data.balloons.edges[position].node.imageUrl)

@@ -21,5 +21,9 @@ class PresenterModule {
         return MainPresenter(remoteDataSource)
     }
 
+//    @Provides
+//    fun providerDetailPresenter(remoteDataSource: RemoteDataSource): DetailPresenter {
+//        return DetailPresenter(remoteDataSource)
+//    }
 
 }

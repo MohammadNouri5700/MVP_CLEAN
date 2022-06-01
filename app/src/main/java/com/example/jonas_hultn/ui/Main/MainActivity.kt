@@ -1,8 +1,6 @@
 package com.example.jonas_hultn.ui.Main
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -13,7 +11,7 @@ import com.example.jonas_hultn.R
 import com.example.jonas_hultn.databinding.ActivityMainBinding
 import com.example.jonas_hultn.factory.BaseActivity
 import com.example.jonas_hultn.factory.DaggerMainApplication
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.jonas_hultn.ui.detail.DetailSheet
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View, ListImp {
@@ -53,6 +51,8 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
         binding.shimmer.startShimmer()
         mainPresenter.fetchBalloonList()
 
+
+
     }
 
 
@@ -82,8 +82,10 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
 
     }
 
-    override fun detail(item: BallonlistQuery.Edge) {
-        Toast.makeText(this, "impl", Toast.LENGTH_SHORT).show()
+    override fun detail(item: BallonlistQuery.Data,position:Int) {
+        val detailSheet = DetailSheet(item,position)
+        detailSheet.show(supportFragmentManager,"TAG1")
+//        Toast.makeText(this, "impl", Toast.LENGTH_SHORT).show()
     }
 
     override fun loadMore(boolean: Boolean) {

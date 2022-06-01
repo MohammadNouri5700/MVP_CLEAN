@@ -2,6 +2,7 @@ package com.example.jonas_hultn.di.component
 
 import com.example.jonas_hultn.di.module.ApolloModule
 import com.example.jonas_hultn.di.module.PreferencesModule
+import com.example.jonas_hultn.di.module.PresenterModule
 import com.example.jonas_hultn.ui.Main.MainActivity
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(activity: MainActivity)
+//    fun inject(detailFragment: DetailFragment)
 //    @Component.Factory
 //    interface Factory {
 //        fun create(@BindsInstance context: Context): AppComponent
