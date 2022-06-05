@@ -47,7 +47,7 @@
 
 
             <EditText
-                android:id="@+id/txt_message"
+                android:id="@+id/edt_message"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:maxLength="160"
@@ -58,7 +58,7 @@
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_message"
+                android:layout_below="@+id/edt_message"
                 android:text="@string/save" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

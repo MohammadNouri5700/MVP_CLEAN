@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.hepsi.repository.local.DBs.MessageDb
 import com.example.jonas_hultn.repository.local.callbacks.MessageDao
 
-@Database(entities = [MessageDb::class],version = 2 , exportSchema = false)
+@Database(entities = [MessageDb::class],version = 3 , exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
 

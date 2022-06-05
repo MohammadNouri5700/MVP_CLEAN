@@ -8,5 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "message")
 data class MessageDb (
     @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "content") val word: String
+    @ColumnInfo(name = "msgid") val msgid: String,
+    @ColumnInfo(name = "content") var content: String,
+    @ColumnInfo(name = "dataclass") var dataclass: String
 )

@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.example.jonas_hultn.BallonlistQuery
 import com.example.jonas_hultn.R
+import com.example.jonas_hultn.repository.local.callbacks.MessageDao
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class DetailSheet constructor(val item: BallonlistQuery.Data,val position:Int) : BottomSheetDialogFragment() {
+class DetailSheet constructor(val item: BallonlistQuery.Data,val position:Int,val db: MessageDao) : BottomSheetDialogFragment() {
 
     private lateinit var bottomSheet: ViewGroup
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
@@ -58,7 +59,7 @@ class DetailSheet constructor(val item: BallonlistQuery.Data,val position:Int) :
     ): View? {
         val myview: View = inflater.inflate(R.layout.bottomsheet, container, false)
         viewPager = myview.findViewById(R.id.myViewPager)
-        val adapter = MyFragmentAdapter(childFragmentManager,item)
+        val adapter = MyFragmentAdapter(childFragmentManager,item,db)
         viewPager.adapter = adapter
         viewPager.setCurrentItem(position,false)
         return myview

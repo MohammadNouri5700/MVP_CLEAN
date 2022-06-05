@@ -6,7 +6,7 @@ import com.example.hepsi.repository.local.DBs.MessageDb
 @Dao
 interface MessageDao {
     @Query("SELECT * FROM message")
-    fun getUser() : MessageDb
+    fun getmessages() : List<MessageDb>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg todo: MessageDb)
@@ -19,4 +19,9 @@ interface MessageDao {
 
     @Query("DELETE FROM message")
     fun truncate()
+
+
+    @Query("SELECT * FROM message where msgid=:id")
+    fun getmessages(id:String) : MessageDb
+
 }

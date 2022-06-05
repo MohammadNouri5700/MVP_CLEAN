@@ -1,5 +1,6 @@
 package com.example.jonas_hultn.ui.Main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,7 @@ import com.example.jonas_hultn.factory.BaseActivity
 import com.example.jonas_hultn.factory.DaggerMainApplication
 import com.example.jonas_hultn.repository.local.callbacks.MessageDao
 import com.example.jonas_hultn.ui.detail.DetailSheet
+import com.example.jonas_hultn.ui.myballoons.MyBalloon
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View, ListImp {
@@ -46,7 +48,6 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
         binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
 
 
-        db.insert(MessageDb(0,"fbsdfbs"))
 
 
         mainPresenter._result.observe(
@@ -57,6 +58,10 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
         binding.shimmer.startShimmer()
         mainPresenter.fetchBalloonList()
 
+
+        binding.txtMyballons.setOnClickListener{
+            startActivity(Intent(this,MyBalloon::class.java))
+        }
 
 
     }
@@ -88,9 +93,9 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
 
     }
 
-    override fun detail(item: BallonlistQuery.Data,position:Int) {
-        val detailSheet = DetailSheet(item,position)
-        detailSheet.show(supportFragmentManager,"TAG1")
+    override fun detail(item: BallonlistQuery.Data, position: Int) {
+        val detailSheet = DetailSheet(item, position, db)
+        detailSheet.show(supportFragmentManager, "TAG1")
 //        Toast.makeText(this, "impl", Toast.LENGTH_SHORT).show()
     }
 
