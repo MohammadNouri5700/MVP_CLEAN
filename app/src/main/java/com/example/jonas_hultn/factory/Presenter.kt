@@ -20,7 +20,6 @@ abstract class Presenter<T : BaseView> {
 
 
     open fun initialize(extras: Bundle?) {}
-    open fun initialize() {}
 
     fun start() {
         isViewAlive.set(true)
