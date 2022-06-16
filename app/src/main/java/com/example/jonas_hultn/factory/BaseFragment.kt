@@ -16,12 +16,7 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment : Fragment(), BaseView {
 
-
     protected var presenter: Presenter<*>? = null
-
-    abstract val layoutId: Int
-
-    private val toolbarTitleKey: String? = null
 
     protected abstract fun initializeDagger()
 
@@ -33,13 +28,11 @@ abstract class BaseFragment : Fragment(), BaseView {
         initializePresenter()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         presenter?.initialize(arguments)
-
-
+        return view
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -50,5 +43,4 @@ abstract class BaseFragment : Fragment(), BaseView {
         super.onStop()
         presenter?.finalizeView()
     }
-
 }

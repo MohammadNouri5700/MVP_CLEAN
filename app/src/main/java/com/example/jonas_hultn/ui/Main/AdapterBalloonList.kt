@@ -22,7 +22,6 @@ class AdapterBalloonList constructor(
 ) : RecyclerView.Adapter<AdapterBalloonList.ViewHolder>() {
 
 
-    var lastPosition = 0
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val txtdes: TextView
@@ -71,7 +70,7 @@ class AdapterBalloonList constructor(
         holder.txtprice.text = data.balloons.edges[position].node.price.toString()
 
         holder.txtdetail.setOnClickListener {
-            data.balloons.edges.get(position).let { it1 -> listener.detail(data,position) }
+            data.balloons.edges[position].let { listener.detail(data,position) }
         }
 
         Picasso.with(ctx).load(Constant.DOMAIN + data.balloons.edges[position].node.imageUrl)

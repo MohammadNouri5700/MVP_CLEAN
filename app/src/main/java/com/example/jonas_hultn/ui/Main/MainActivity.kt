@@ -94,9 +94,8 @@ class MainActivity : BaseActivity(), MainContract.View, ListImp {
     }
 
     override fun detail(item: BallonlistQuery.Data, position: Int) {
-        val detailSheet = DetailSheet(item, position, db)
+        val detailSheet = DetailSheet(item, position)
         detailSheet.show(supportFragmentManager, "TAG1")
-//        Toast.makeText(this, "impl", Toast.LENGTH_SHORT).show()
     }
 
     override fun loadMore(boolean: Boolean) {

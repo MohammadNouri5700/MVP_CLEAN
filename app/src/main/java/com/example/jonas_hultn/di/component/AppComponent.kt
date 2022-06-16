@@ -1,9 +1,6 @@
 package com.example.jonas_hultn.di.component
 
-import com.example.jonas_hultn.di.module.ApolloModule
-import com.example.jonas_hultn.di.module.DataBaseModule
-import com.example.jonas_hultn.di.module.PreferencesModule
-import com.example.jonas_hultn.di.module.PresenterModule
+import com.example.jonas_hultn.di.module.*
 import com.example.jonas_hultn.ui.Main.MainActivity
 import com.example.jonas_hultn.ui.detail.DetailFragment
 import com.example.jonas_hultn.ui.myballoons.MyBalloon
@@ -16,6 +13,7 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         PreferencesModule::class,
+        ServiceModule::class,
         ApolloModule::class,
         DataBaseModule::class
     ]
