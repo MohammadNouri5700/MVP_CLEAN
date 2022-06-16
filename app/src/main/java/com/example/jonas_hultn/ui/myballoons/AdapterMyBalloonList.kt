@@ -29,14 +29,12 @@ class AdapterMyBalloonList constructor(
         val txtname: TextView
         val txtprice: TextView
         val img: ImageView
-
         init {
             // Define click listener for the ViewHolder's View.
             txtdes = view.findViewById(R.id.txt_des)
             txtname = view.findViewById(R.id.txt_name)
             txtprice = view.findViewById(R.id.txt_price)
             img = view.findViewById(R.id.img)
-
         }
     }
 
@@ -59,12 +57,12 @@ class AdapterMyBalloonList constructor(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.txtname.text = data.get(position).node.name
-        holder.txtdes.text = data.get(position).node.description
-        holder.txtprice.text = data.get(position).node.price.toString()
+        holder.txtname.text = data[position].node.name
+        holder.txtdes.text = data[position].node.description
+        holder.txtprice.text = data[position].node.price.toString()
 
 
-        Picasso.with(ctx).load(Constant.DOMAIN + data.get(position).node.imageUrl)
+        Picasso.with(ctx).load(Constant.DOMAIN + data[position].node.imageUrl)
             .into(holder.img)
 
     }

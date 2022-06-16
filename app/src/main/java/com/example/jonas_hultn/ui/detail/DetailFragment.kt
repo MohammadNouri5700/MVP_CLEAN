@@ -51,9 +51,9 @@ class DetailFragment @Inject constructor() : BaseFragment() {
 
 
 
-        binding.btnSave.setOnClickListener {
-            if (detailPresenter.validation(binding.edtMessage.text.toString())) {
-                detailPresenter.insertCustomMessage(item,binding.edtMessage.text.toString())
+        binding.btnSaveCustomMessage.setOnClickListener {
+            if (detailPresenter.validation(binding.edtCustomMessage.text.toString())) {
+                detailPresenter.insertCustomMessage(item,binding.edtCustomMessage.text.toString())
             }else
                 Toast.makeText(requireActivity(), "Validation failed", Toast.LENGTH_SHORT).show()
         }
@@ -66,11 +66,11 @@ class DetailFragment @Inject constructor() : BaseFragment() {
     }
 
     private fun initView(){
-        binding.txtName.text = item.node.name
-        binding.txtDes.text = item.node.description
+        binding.txtBalloonName.text = item.node.name
+        binding.txtBalloonDes.text = item.node.description
         Picasso.with(context).load(Constant.DOMAIN + item.node.imageUrl)
-            .into(binding.img)
-        binding.edtMessage.setText(db.getmessages(item.node.id)?.content)
+            .into(binding.imgBalloon)
+        binding.edtCustomMessage.setText(db.getmessages(item.node.id)?.content)
     }
 
 
